@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <Button
+        android:id="@+id/buttonAnaliz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/OptionsMenuFMAnalyze"
+  	  	android:textColor="#ffffff"
+    	android:background="@drawable/mybutton"
+    	android:layout_marginBottom="5dp"
+    	android:onClick="ActionAnaliz" />
+
+    <Button
+        android:id="@+id/buttonDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/OptionsMenuFMDelete"
+  	  	android:textColor="#ffffff"
+    	android:background="@drawable/mybutton"
+    	android:layout_marginBottom="5dp"
+    	android:onClick="ActionDelete"   	 />
+    
+    <EditText
+        android:id="@+id/EditOpPrev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:inputType="text" />
+
+</LinearLayout>

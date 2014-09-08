@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ECG-Analyzer</string>
+    <string name="Descript_photo_cover">Portada</string>
+    <string name="example">Ejemplo</string>
+    <string name="takePhoto">Tomar Foto</string>
+    <string name="searchPhoto">Buscar Foto</string>
+    <string name="sett">Opciones</string>
+    <string name="Nulo"></string>
+    <string name="howTo">Como funciona</string>
+    <string name="About">Acerca de</string>
+	<string name="AboutText">Universidad Rey Juan Carlos\nTFG: Aplicación para Obtención de Señal Cardíaca desde Imagen Digital de ECG\nTutora: Inmaculada Mora\nAuthor: Adrián Pizarro</string>
+	<string name="HowToText">1-Coloca el ECG sobre una superficie plana.\n2-Pulsa en Take Photo para activar la cámara.\n3-Coloca el móvil en paralelo al ECG a una distancia de unos 20cm.\n4-Toca la pantalla para echar la foto y comenzar a obtener la señal cardiaca.</string>
+	
+	<string name="CantOpen">No se pudo abrir directorio</string>
+	<string name="OptionsMenuFMC">Opciones</string>
+	<string name="OptionsMenuFMAnalyze">Analizar</string>
+	<string name="OptionsMenuFMView">Ver</string>
+	<string name="OptionsMenuFMCancel">Cancelar</string>
+	<string name="OptionsMenuFMDelete">Borrar</string>
+	<string name="OptionsMenuFMRen">Renombrar</string>
+	
+	<string name="LongCLick">Pulsa un rato para ver opciones</string>
+	<string name="TouchScreen">Toca la pantalla para foto</string>
+	<string name="PhotoSaved">Foto guardada, toca para opciones</string>
+	<string name="PhotoDisc">Foto borrada</string>
+	<string name="PhotoRen">Foto renombrada y guardada: /mnt/sdcard/ECG-Analyzer</string>
+	<string name="SavedPref">Guardado</string>
+	
+	<string name="ChooseOp">Elija una:</string>
+	<string name="PhotoRenFail">Extensión no válida(.jpg .png)</string>
+	
+</resources>

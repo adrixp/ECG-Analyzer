@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="openCam"
+        android:text="@string/takePhoto"
+  	  	android:textColor="#ffffff"
+    	android:background="@drawable/mybutton"
+    	android:layout_marginBottom="5dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="searchPhoto"
+        android:text="@string/searchPhoto"
+  	  	android:textColor="#ffffff"
+    	android:background="@drawable/mybutton"
+    	android:layout_marginBottom="5dp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="config"
+        android:text="@string/sett"
+  	  	android:textColor="#ffffff"
+    	android:background="@drawable/mybutton"
+    	android:layout_marginBottom="5dp" />
+    
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="howTo"
+        android:text="@string/howTo"
+  	  	android:textColor="#ffffff"
+    	android:background="@drawable/mybutton"
+    	android:layout_marginBottom="5dp" />
+    
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="about"
+        android:text="@string/About"
+  	  	android:textColor="#ffffff"
+    	android:background="@drawable/mybutton" />
+
+</LinearLayout>

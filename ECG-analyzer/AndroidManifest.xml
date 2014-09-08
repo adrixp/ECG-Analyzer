@@ -1,0 +1,68 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ecg_analyzer"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="21" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".Cover"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoTitle" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Menu"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".TakePhoto"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.FullScreen" >
+        </activity>
+        <activity
+            android:name=".Settings"
+            android:label="@string/sett" >
+        </activity>
+        <activity
+            android:name=".File_Manager"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".About"
+            android:label="@string/About"
+            android:theme="@style/Theme.Dialog.TittleCenter" >
+        </activity>
+        <activity
+            android:name=".HowTo"
+            android:label="@string/howTo"
+            android:theme="@style/Theme.Dialog.TittleCenter" >
+        </activity>
+        <activity
+            android:name=".Photo_Preview"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.NoTitle" >
+        </activity>
+    </application>
+
+</manifest>
