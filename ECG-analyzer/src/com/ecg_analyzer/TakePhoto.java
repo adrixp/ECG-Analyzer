@@ -6,21 +6,29 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class TakePhoto extends Activity {
+public class TakePhoto extends Activity implements SensorEventListener{
 
-	// Variables camera
+	// Variables preview camera
 	private SurfaceView preview = null;
 	private SurfaceHolder previewHolder = null;
 	private Camera camera = null;
@@ -28,9 +36,23 @@ public class TakePhoto extends Activity {
 	private boolean cameraConfigured = false;
 	private Camera.Size size = null;
 	
-	
+	//Variables photo
 	private String namePrev = "";
 	SaveBuf out = new SaveBuf();
+	private MediaPlayer mp;
+	
+	//Variables para pitch and roll
+	private SensorManager sManager;
+	float Rot[]=null; //for gravity rotational data
+	float I[]=null; //for magnetic rotational data
+	float accels[]=new float[3];
+	float mags[]=new float[3];
+	float[] values = new float[3];
+	
+	float pitch;
+	boolean isRed=true;
+	boolean inRange=false;
+	LinearLayout ll;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +60,31 @@ public class TakePhoto extends Activity {
 		setContentView(R.layout.layout_take_photo);
 		
 		Toast.makeText(this, getString(R.string.TouchScreen), Toast.LENGTH_LONG).show();
+		sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+		
+		ll = (LinearLayout) findViewById(R.id.layoutTf);
 
 		preview = (SurfaceView) findViewById(R.id.preview);
 		previewHolder = preview.getHolder();
 		previewHolder.addCallback(surfaceCallback);
+		mp = MediaPlayer.create(this, R.raw.camera_click);
 		
 		preview.setOnClickListener(new SurfaceView.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				String path = makePhoto(out.getOut());
-				if(path!=""){
-					Intent i = new Intent(TakePhoto.this, Photo_Preview.class);
-					i.putExtra("photoPath", path);
-					i.putExtra("photoName", namePrev);
-					TakePhoto.this.recreate();
-					startActivity(i);
-					
+				if(inRange){
+					String path = makePhoto(out.getOut());
+					if(path!=""){
+						shootSound(mp);
+						Intent i = new Intent(TakePhoto.this, Photo_Preview.class);
+						i.putExtra("photoPath", path);
+						i.putExtra("photoName", namePrev);
+						TakePhoto.this.recreate();
+						startActivity(i);
+						
+					}
+				}else {
+					Toast.makeText(TakePhoto.this, getString(R.string.MustHoriz), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -62,8 +93,10 @@ public class TakePhoto extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-
 		
+		sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
+	    sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),SensorManager.SENSOR_DELAY_NORMAL);
+
 		camera = Camera.open();
 		startPreview();
 	}
@@ -80,6 +113,17 @@ public class TakePhoto extends Activity {
 		camera = null;
 		inPreview = false;
 		super.onPause();
+	}
+	
+	public void shootSound(MediaPlayer mp){
+	    AudioManager meng = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+	    int volume = meng.getStreamVolume( AudioManager.STREAM_NOTIFICATION);
+	    
+	    if (volume != 0){
+	   
+	        if (mp != null)
+	            mp.start();
+	    }
 	}
 
 	private Camera.Size getBestPreviewSize(int width, int height,
@@ -116,7 +160,7 @@ public class TakePhoto extends Activity {
 
 			if (!cameraConfigured) {
 				Camera.Parameters parameters = camera.getParameters();
-				parameters.setFocusMode(Camera.Parameters.FLASH_MODE_ON);
+				parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
 				size = getBestPreviewSize(width, height, parameters);
 
 				if (size != null) {
@@ -176,12 +220,12 @@ public class TakePhoto extends Activity {
 	
 	public String makePhoto(byte [] photoArry){
 		
-		String currentDateandTime = new SimpleDateFormat(
+		String currentDateAndTime = new SimpleDateFormat(
 				"dd-MM-yyyy-HH-mm-ss").format(new Date());
 
 		String path = Environment.getExternalStorageDirectory()
 				+ "/ECG-Analyzer";
-		String name = "ECG-" + currentDateandTime + ".jpg";
+		String name = "ECG-" + currentDateAndTime + ".jpg";
 		namePrev = name;
 		try {
 			File photo = new File(path, name);
@@ -197,6 +241,52 @@ public class TakePhoto extends Activity {
 		}
 	
 		return "";
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		switch (event.sensor.getType()){
+	    case Sensor.TYPE_MAGNETIC_FIELD:
+	        mags = event.values.clone();
+	        break;
+	    case Sensor.TYPE_ACCELEROMETER:
+	        accels = event.values.clone();
+	        break;
+	    }
+
+	    if (mags != null && accels != null) {
+	        Rot = new float[9];
+	        I= new float[9];
+	        SensorManager.getRotationMatrix(Rot, I, accels, mags);
+	        // Correct if screen is in Landscape
+
+	        float[] outR = new float[9];
+	        SensorManager.remapCoordinateSystem(Rot, SensorManager.AXIS_X,SensorManager.AXIS_Z, outR);
+	        SensorManager.getOrientation(outR, values);
+
+	        pitch =values[1] * 57.2957795f;
+	        mags = null; //retrigger the loop when things are repopulated
+	        accels = null; ////retrigger the loop when things are repopulated
+	        
+	        if (pitch >= 80.0F && pitch < 91.0F && isRed) {
+	        	ll.setBackgroundResource(R.drawable.take_foto_border_green);
+	        	isRed = false;
+	        	inRange = true;
+	        }else if (pitch < 80.0F || pitch >= 91.0F){
+	        	if(!isRed){
+		        	ll.setBackgroundResource(R.drawable.take_foto_border_red);
+		        	isRed = true;
+		        	inRange = false;
+	        	}
+	        }
+	    }
+		
 	}
 
 }

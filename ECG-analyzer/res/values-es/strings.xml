@@ -29,5 +29,6 @@
 	
 	<string name="ChooseOp">Elija una:</string>
 	<string name="PhotoRenFail">Extensión no válida(.jpg .png)</string>
+	<string name="MustHoriz">Debe estar horizontal al suelo (verde)</string>
 	
 </resources>

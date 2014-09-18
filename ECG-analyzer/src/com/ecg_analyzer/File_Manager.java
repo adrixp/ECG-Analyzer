@@ -200,6 +200,8 @@ public class File_Manager extends Activity{
 						
 		if (!fd.isDirectory()) {
 			nombre =Environment.getExternalStorageDirectory()+ parsePath(path)+nombre; //ruta del archivo
+			System.out.println(nombre);
+			System.out.println(namePrev);
 			
 			menu.setHeaderTitle(getString(R.string.OptionsMenuFMC));			
 			menu.addSubMenu(li.get(pos).getNombre());
