@@ -2,32 +2,24 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="preferencias_principal" >
 
-    <ListPreference
-        android:defaultValue="0"
-        android:entries="@array/tiposDist"
-        android:entryValues="@array/tiposOrdenValores"
-        android:key="distancePhoto"
-        android:summary="Distancia desde la que se echa la foto"
-        android:title="Distancia" />
-
-    <PreferenceCategory android:title="Guardar foto" >
-        <CheckBoxPreference
-            android:key="savePhoto"
-            android:summary="Si desea guardar las fotos en el teléfono"
-            android:title="Guardar fotos" />
-
-        <EditTextPreference
-            android:key="namePhoto"
-            android:defaultValue="ECG"
-            android:summary="Nombre que desea poner"
-            android:title="Nombre foto" />
-
+    <PreferenceCategory android:title="@string/SetTitle" >
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/tiposFormat"
-            android:entryValues="@array/tiposOrdenValores"
+            android:entryValues="@array/tiposFormatValues"
             android:key="typeFormat"
-            android:summary="En que formato desea guardarlo"
-            android:title="Formato" />
+            android:summary="@string/SetFormSum"
+            android:title="@string/SetFormTitle" />
+        <ListPreference
+            android:key="typeCal"
+            android:summary="@string/SetCalSum"
+            android:title="@string/SetCalTitle" />
+        <ListPreference
+            android:defaultValue="8"
+            android:entries="@array/tiposCompress"
+            android:entryValues="@array/tiposCompressValues"
+            android:key="typeComp"
+            android:summary="@string/SetCompSum"
+            android:title="@string/SetCompTitle" />
     </PreferenceCategory>
 </PreferenceScreen>

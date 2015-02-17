@@ -53,6 +53,15 @@
         android:onClick="about"
         android:text="@string/About"
   	  	android:textColor="#ffffff"
+    	android:background="@drawable/mybutton"
+    	android:layout_marginBottom="5dp" />
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="log"
+        android:text="@string/Log"
+  	  	android:textColor="#ffffff"
     	android:background="@drawable/mybutton" />
 
 </LinearLayout>

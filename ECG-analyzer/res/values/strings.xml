@@ -21,7 +21,6 @@
 	<string name="OptionsMenuFMRen">Rename</string>
 	
 	<string name="LongCLick">Long click to see options</string>
-	<string name="TouchScreen">Touch screen to take picture</string>
 	<string name="PhotoSaved">Photo saved, touch options</string>
 	<string name="PhotoDisc">Photo deleted</string>
 	<string name="PhotoRen">Photo renamed and saved: /mnt/sdcard/ECG-Analyzer</string>
@@ -30,5 +29,16 @@
 	<string name="ChooseOp">Choose one:</string>
 	<string name="PhotoRenFail">Invalid extension(.jpg .png)</string>
 	<string name="MustHoriz">Must be horizontal to the floor (green)</string>
+	
+	<string name="SetTitle">Image Settings</string>
+	<string name="SetFormTitle">Format</string>
+	<string name="SetFormSum">Select the image format</string>
+	<string name="SetCalTitle">Resolution</string>
+	<string name="SetCalSum">Select the image resolution</string>	
+	<string name="SetCompTitle">Compress</string>
+	<string name="SetCompSum">Select the compression level</string>	
+	
+	<string name="Log">Log</string>
+	<string name="Optimal">Optimal</string>	
 	
 </resources>

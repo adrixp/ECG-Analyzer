@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:android1="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layoutTf"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android1:gravity="center"
     android:background="@drawable/take_foto_border_red"
-	android:padding="3dp" >
-
-   <SurfaceView
+    android:orientation="vertical"
+    android:padding="3dp" >
+    
+    <SurfaceView
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </SurfaceView>
 
-</LinearLayout>
-
-<!-- <?xml version="1.0" encoding="utf-8"?> -->
-<!-- <SurfaceView xmlns:android="http://schemas.android.com/apk/res/android" -->
-<!--     android:id="@+id/preview" -->
-<!--     android:layout_width="match_parent" -->
-<!--     android:layout_height="match_parent"  -->
-<!--     xmlns:android1="http://schemas.android.com/apk/res/android"> -->
-
-<!-- </SurfaceView> -->
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    	android:layout_gravity="right"
+        android:onClick="butTakePhoto"
+    	android:background="@drawable/my_button_camera"
+        android:text="@string/Nulo" />
+</FrameLayout>

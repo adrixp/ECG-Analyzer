@@ -155,7 +155,7 @@ public class File_Manager extends Activity{
 	}
 	
 	private enum Extensions {
-		png, jpg, NOVALUE;
+		png, jpg, bmp, NOVALUE;
 				
 		public static Extensions toExt(String str)
 	    {
@@ -174,6 +174,8 @@ public class File_Manager extends Activity{
 			case png:
 				return true;
 			case jpg:
+				return true;
+			case bmp:
 				return true;
 	        default: 
 	        	return false;

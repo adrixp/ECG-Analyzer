@@ -36,4 +36,9 @@ public class Menu extends Activity{
 		Intent i = new Intent(this, About.class);
 		startActivity(i);
 	}
+	
+	public void log(View view) {
+		Intent i = new Intent(this, ShowLog.class);
+		startActivity(i);
+	}
 }

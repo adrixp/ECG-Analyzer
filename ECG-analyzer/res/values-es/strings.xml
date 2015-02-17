@@ -21,7 +21,6 @@
 	<string name="OptionsMenuFMRen">Renombrar</string>
 	
 	<string name="LongCLick">Pulsa un rato para ver opciones</string>
-	<string name="TouchScreen">Toca la pantalla para foto</string>
 	<string name="PhotoSaved">Foto guardada, toca para opciones</string>
 	<string name="PhotoDisc">Foto borrada</string>
 	<string name="PhotoRen">Foto renombrada y guardada: /mnt/sdcard/ECG-Analyzer</string>
@@ -30,5 +29,16 @@
 	<string name="ChooseOp">Elija una:</string>
 	<string name="PhotoRenFail">Extensión no válida(.jpg .png)</string>
 	<string name="MustHoriz">Debe estar horizontal al suelo (verde)</string>
+	
+	<string name="SetTitle">Opciones Imagen</string>
+	<string name="SetFormTitle">Formato</string>
+	<string name="SetFormSum">Selecciona el formato de la imagen</string>
+	<string name="SetCalTitle">Resolución</string>
+	<string name="SetCalSum">Selecciona la resulución de la imagen</string>	
+	<string name="SetCompTitle">Compresión</string>
+	<string name="SetCompSum">Selecciona el nivel de compresión</string>
+	
+	
+	<string name="Optimal">Optimo</string>	
 	
 </resources>

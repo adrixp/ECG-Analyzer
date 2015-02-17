@@ -77,7 +77,12 @@ public class Photo_Preview extends Activity {
 			
 		
 		final EditText editRen = (EditText) entrada.findViewById(R.id.EditOpPrev);
-		editRen.setText(name);
+		String [] nameArry = name.split("\\.");
+		
+		String nameNoExt = nameArry[0];
+		final String Ext = "."+nameArry[nameArry.length-1];
+		editRen.setText(nameNoExt);		
+		editRen.setTextKeepState(Ext);
 		
 		new AlertDialog.Builder(this).setTitle(getString(R.string.sett))
 				.setMessage(name)
@@ -86,7 +91,7 @@ public class Photo_Preview extends Activity {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						if( editRen.getText().toString() == name ){
 							Toast.makeText(Photo_Preview.this, getString(R.string.PhotoRen), Toast.LENGTH_LONG).show();
-						}else if ( CheckExtension(editRen.getText().toString()) ){
+						}else if ( CheckExtension(editRen.getText().toString()+Ext) ){
 							File fd = new File(path);
 							
 						    if(fd.exists()){
@@ -104,7 +109,7 @@ public class Photo_Preview extends Activity {
 	}
 	
 	private enum Extensions {
-		png, jpg, NOVALUE;
+		png, jpg, bmp, NOVALUE;
 				
 		public static Extensions toExt(String str)
 	    {
@@ -123,6 +128,8 @@ public class Photo_Preview extends Activity {
 			case png:
 				return true;
 			case jpg:
+				return true;
+			case bmp:
 				return true;
 	        default: 
 	        	return false;
