@@ -21,5 +21,12 @@
             android:key="typeComp"
             android:summary="@string/SetCompSum"
             android:title="@string/SetCompTitle" />
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/tiposFlash"
+            android:entryValues="@array/tiposFlashValues"
+            android:key="setFlash"
+            android:summary="@string/SetFlashSum"
+            android:title="@string/SetFlashTitle" />
     </PreferenceCategory>
 </PreferenceScreen>

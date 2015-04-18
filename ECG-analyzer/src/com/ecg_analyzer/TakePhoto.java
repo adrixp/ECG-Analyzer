@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.app.Activity;
@@ -17,6 +18,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
@@ -47,6 +49,7 @@ public class TakePhoto extends Activity implements SensorEventListener{
 	private int numCompress;
 	private int numBestPrev;
 	private int numTipoFormat;
+	private int flashOn;
 	
 	//Checkar lo de la extension
 	//checkar bmp
@@ -99,6 +102,9 @@ public class TakePhoto extends Activity implements SensorEventListener{
 	public void onResume() {
 		super.onResume();
 		
+		DrawView.points = new Point[4];
+		DrawView.colorballs = new ArrayList<ColorBall>();
+		
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		//optima para jpg 71, para png se ignora
@@ -106,6 +112,7 @@ public class TakePhoto extends Activity implements SensorEventListener{
 		numBestPrev = Integer.parseInt(pref.getString("typeCal", "3"));
 		//0 png, 1 jpg , 2 bmp
 		numTipoFormat = Integer.parseInt(pref.getString("typeFormat", "1"));
+		flashOn = Integer.parseInt(pref.getString("setFlash", "0"));
 		
 		sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
 	    sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),SensorManager.SENSOR_DELAY_NORMAL);
@@ -126,7 +133,9 @@ public class TakePhoto extends Activity implements SensorEventListener{
 		if (inPreview) {
 			camera.stopPreview();
 		}
-
+		
+		DrawView.points[3] = null;
+		DrawView.colorballs.clear();
 		camera.setPreviewCallback(null);
 		camera.release();
 		camera = null;
@@ -209,6 +218,10 @@ public class TakePhoto extends Activity implements SensorEventListener{
 			if (!cameraConfigured) {
 				Camera.Parameters parameters = camera.getParameters();
 				parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+				parameters.setJpegQuality(numCompress);
+				if(flashOn == 1){
+					parameters.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+				}
 				size = getBestPreviewSize(width, height, parameters);
 
 				if (size != null) {
@@ -254,21 +267,43 @@ public class TakePhoto extends Activity implements SensorEventListener{
 		}
 	};
 	
+	//probar a eliminar todos los onclick poco a poco.
+	//probar si no a hacer getX del fichero a.llava
+	//generar un .raw con y sin decode
+	//Hacer y enviar fotos a inma
+	//1º detec paralelo, 2º make rect
+	//Habilitar flash o no?
+	//Revisar el default de los dpi
+	//Nombre de las fotos.(revisado para probar)
+	//investigar el no dejar echar foto hasta enfocado.
+	//Mirar lo del jpeg, en los parametros de la camara hay gets interesantes (getImgeformat..)
+	//Probar android studio
+	
+	//ver que pasa ahora con el setjpg quality
+	//Enviar a inma un correo con las Images supported a ver que sabe ella, el .raw y las fotos.
+	
 	public String makePhoto(byte [] photoArry){
 		
-		String retorno ="";
+		String retorno = "";
 		
 		if (size != null) {
 			Rect rectangle = new Rect();
-			rectangle.bottom = size.height;
-			rectangle.top = 0;
-			rectangle.left = 0;
-			rectangle.right = size.width;
+			if(DrawView.points[0] != null){
+				rectangle = returnRectangle(rectangle,true);
+			}else{
+				rectangle = returnRectangle(rectangle,false);
+			}
+			
 	
 			YuvImage image = new YuvImage(photoArry, ImageFormat.NV21,
 					size.width, size.height, null /* strides */);
 			ByteArrayOutputStream ba = new ByteArrayOutputStream();
-			image.compressToJpeg(rectangle, numCompress, ba);
+			try{
+				image.compressToJpeg(rectangle, numCompress, ba);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			
 			
 			//0 png, 1 jpg(else=default) , 2 bmp
 			if(numTipoFormat == 0 ){ //png compressed and lossless
@@ -277,7 +312,7 @@ public class TakePhoto extends Activity implements SensorEventListener{
 					ByteArrayOutputStream bapng = new ByteArrayOutputStream();
 					bmp.compress(Bitmap.CompressFormat.PNG, numCompress, bapng);
 					
-					retorno = makePhotoFile(bapng.toByteArray(),".png");
+					retorno = makePhotoFile(bapng.toByteArray(),".png","-png-",100);
 				}
 			}else if(numTipoFormat == 2){ //bmp compressless and lossless
 				Bitmap bmp = BitmapFactory.decodeByteArray(ba.toByteArray(), 0, ba.toByteArray().length);
@@ -287,10 +322,10 @@ public class TakePhoto extends Activity implements SensorEventListener{
 					ByteBuffer buffer = ByteBuffer.allocate(bytes); //Create a new buffer
 					bmp.copyPixelsToBuffer(buffer); //Move the byte data to the buffer
 
-					retorno = makePhotoFile(buffer.array(),".bmp");
+					retorno = makePhotoFile(buffer.array(),".bmp","-bmp-",0);
 				}
 			}else{	//jpg compressed and lossless 
-				retorno = makePhotoFile(ba.toByteArray(),".jpg");
+				retorno = makePhotoFile(ba.toByteArray(),".jpg","-jpg-",numCompress);
 				
 			}
 			
@@ -299,13 +334,40 @@ public class TakePhoto extends Activity implements SensorEventListener{
 		return retorno;
 	}
 	
-	public String makePhotoFile(byte [] photoArry, String extension){
+	public Rect returnRectangle(Rect rectangle,Boolean haveRect){
+		if(haveRect){
+			rectangle.left = DrawView.points[0].x;
+			rectangle.top = DrawView.points[0].y;
+			rectangle.right = DrawView.points[0].x;
+			rectangle.bottom = DrawView.points[0].y;
+	        for (int i = 1; i < DrawView.points.length; i++) {
+	        	rectangle.left = rectangle.left > DrawView.points[i].x ? DrawView.points[i].x:rectangle.left;
+	        	rectangle.top = rectangle.top > DrawView.points[i].y ? DrawView.points[i].y:rectangle.top;
+	        	rectangle.right = rectangle.right < DrawView.points[i].x ? DrawView.points[i].x:rectangle.right;
+	        	rectangle.bottom = rectangle.bottom < DrawView.points[i].y ? DrawView.points[i].y:rectangle.bottom;
+	        }
+	        
+			rectangle.bottom = rectangle.bottom + DrawView.colorballs.get(2).getWidthOfBall() / 2;
+			rectangle.top = rectangle.top + DrawView.colorballs.get(0).getWidthOfBall() / 2;
+			rectangle.left = rectangle.left + DrawView.colorballs.get(0).getWidthOfBall() / 2;
+			rectangle.right = rectangle.right + DrawView.colorballs.get(2).getWidthOfBall() / 2;
+		}else{
+			rectangle.bottom = size.height;
+			rectangle.top = 0;
+			rectangle.left = 0;
+			rectangle.right = size.width;
+		}
+		
+		return rectangle;
+	}
+	
+	public String makePhotoFile(byte [] photoArry, String extension,String extensionSinp,int compresion){
 		String currentDateAndTime = new SimpleDateFormat(
 				"dd-MM-yyyy-HH-mm-ss").format(new Date());
 
 		String path = Environment.getExternalStorageDirectory()
 				+ "/ECG-Analyzer";
-		String name = "ECG-" + currentDateAndTime + extension;
+		String name = "ECG-" + currentDateAndTime + extensionSinp + compresion + extension;
 		namePrev = name;
 		try {
 			File photo = new File(path, name);

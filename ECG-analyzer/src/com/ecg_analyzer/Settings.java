@@ -68,7 +68,7 @@ public class Settings extends PreferenceActivity {
             final CharSequence[] entries = listItemsEntries.toArray(new CharSequence[listItemsEntries.size()]);
             final CharSequence[] entryValues = listItemsEntriesVal.toArray(new CharSequence[listItemsEntriesVal.size()]);
             lp.setEntries(entries);
-            lp.setDefaultValue(3);
+            lp.setDefaultValue(entries[0]);
             lp.setEntryValues(entryValues);
 		}
 	}

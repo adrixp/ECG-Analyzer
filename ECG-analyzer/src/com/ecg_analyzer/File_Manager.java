@@ -179,7 +179,6 @@ public class File_Manager extends Activity{
 				return true;
 	        default: 
 	        	return false;
-	    
 		}
 	}
 	
@@ -210,7 +209,8 @@ public class File_Manager extends Activity{
 			menu.add(0, 1, 0, getString(R.string.OptionsMenuFMAnalyze));
 			menu.add(0, 2, 1, getString(R.string.OptionsMenuFMView));
 			menu.add(0, 3, 2, getString(R.string.OptionsMenuFMDelete));
-			menu.add(0, 4, 3, getString(R.string.OptionsMenuFMCancel));
+			menu.add(0, 4, 3, getString(R.string.OptionsMenuFMDeleteAll));
+			menu.add(0, 5, 4, getString(R.string.OptionsMenuFMCancel));
 		}
 	}
 
@@ -233,8 +233,23 @@ public class File_Manager extends Activity{
 		    	li.clear();
 				AdapFiles(listV, parsePath(path));
 		    }
+		}else if(itemId == 4){ //borrar todo
+			deleteAll(parsePath(path));
+	    	li.clear();
+			AdapFiles(listV, parsePath(path));
 		}
 		return true;
+	}
+	
+	public void deleteAll(String p) {
+		File f = new File(Environment.getExternalStorageDirectory() + p);//directorio que lista
+		File[] files = f.listFiles();
+		
+		for (int i = 0; i < files.length; i++) {
+			if (!files[i].isDirectory() && files[i].exists()) {
+				files[i].delete();
+			}
+		}
 	}
 	
 	private class ListaAdapter extends ArrayAdapter<ListaFM> {

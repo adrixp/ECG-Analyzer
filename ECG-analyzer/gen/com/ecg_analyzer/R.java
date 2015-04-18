@@ -19,6 +19,8 @@ public final class R {
     public static final class array {
         public static final int tiposCompress=0x7f0e0000;
         public static final int tiposCompressValues=0x7f0e0001;
+        public static final int tiposFlash=0x7f0e0004;
+        public static final int tiposFlashValues=0x7f0e0005;
         public static final int tiposFormat=0x7f0e0002;
         public static final int tiposFormatValues=0x7f0e0003;
     }
@@ -953,6 +955,10 @@ containing a value of this type.
  Minimum width of the search view text entry area. 
          */
         public static final int abc_search_view_text_min_width=0x7f0a000c;
+        /**  Default screen margins, per the Android Design guidelines. 
+         */
+        public static final int activity_horizontal_margin=0x7f0a0015;
+        public static final int activity_vertical_margin=0x7f0a0016;
         /**  The platform's desired fixed height for a dialog along the major axis
          (the screen is in portrait). This may be either a fraction or a dimension.
  The platform's desired fixed height for a dialog along the major axis
@@ -1075,13 +1081,14 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
         public static final int cover=0x7f020057;
-        public static final int ic_launcher=0x7f020058;
-        public static final int ic_launcher_camera=0x7f020059;
-        public static final int ic_menu_archive=0x7f02005a;
-        public static final int my_button_camera=0x7f02005b;
-        public static final int mybutton=0x7f02005c;
-        public static final int take_foto_border_green=0x7f02005d;
-        public static final int take_foto_border_red=0x7f02005e;
+        public static final int gray_circle=0x7f020058;
+        public static final int ic_launcher=0x7f020059;
+        public static final int ic_launcher_camera=0x7f02005a;
+        public static final int ic_menu_archive=0x7f02005b;
+        public static final int my_button_camera=0x7f02005c;
+        public static final int mybutton=0x7f02005d;
+        public static final int take_foto_border_green=0x7f02005e;
+        public static final int take_foto_border_red=0x7f02005f;
     }
     public static final class id {
         public static final int EditOpPrev=0x7f070047;
@@ -1109,10 +1116,11 @@ containing a value of this type.
         public static final int buttonDelete=0x7f070046;
         public static final int checkbox=0x7f07002d;
         public static final int collapseActionView=0x7f07000d;
-        public static final int config=0x7f07004d;
+        public static final int config=0x7f07004e;
         public static final int default_activity_button=0x7f070028;
         public static final int dialog=0x7f07000e;
         public static final int disableHome=0x7f070008;
+        public static final int drawView1=0x7f07004b;
         public static final int dropdown=0x7f07000f;
         public static final int edit_query=0x7f070030;
         public static final int end=0x7f070013;
@@ -1127,7 +1135,7 @@ containing a value of this type.
         public static final int listMode=0x7f070001;
         public static final int listView3=0x7f07003c;
         public static final int list_item=0x7f070029;
-        public static final int logView=0x7f07004b;
+        public static final int logView=0x7f07004c;
         public static final int middle=0x7f070012;
         public static final int never=0x7f070009;
         public static final int none=0x7f070010;
@@ -1156,7 +1164,7 @@ containing a value of this type.
         public static final int tabMode=0x7f070002;
         public static final int textAbout=0x7f07003d;
         public static final int textHowTo=0x7f07003e;
-        public static final int textList=0x7f07004c;
+        public static final int textList=0x7f07004d;
         public static final int title=0x7f07002b;
         public static final int top_action_bar=0x7f070020;
         public static final int up=0x7f070021;
@@ -1237,32 +1245,35 @@ containing a value of this type.
         public static final int About=0x7f0c0015;
         public static final int AboutText=0x7f0c0016;
         public static final int CantOpen=0x7f0c0018;
-        public static final int ChooseOp=0x7f0c0024;
+        public static final int ChooseOp=0x7f0c0025;
         public static final int Descript_photo_cover=0x7f0c000e;
         public static final int HowToText=0x7f0c0017;
-        public static final int Log=0x7f0c002e;
-        public static final int LongCLick=0x7f0c001f;
-        public static final int MustHoriz=0x7f0c0026;
+        public static final int Log=0x7f0c0031;
+        public static final int LongCLick=0x7f0c0020;
+        public static final int MustHoriz=0x7f0c0027;
         public static final int Nulo=0x7f0c0013;
-        public static final int Optimal=0x7f0c002f;
+        public static final int Optimal=0x7f0c0032;
         public static final int OptionsMenuFMAnalyze=0x7f0c001a;
         public static final int OptionsMenuFMC=0x7f0c0019;
         public static final int OptionsMenuFMCancel=0x7f0c001c;
         public static final int OptionsMenuFMDelete=0x7f0c001d;
-        public static final int OptionsMenuFMRen=0x7f0c001e;
+        public static final int OptionsMenuFMDeleteAll=0x7f0c001e;
+        public static final int OptionsMenuFMRen=0x7f0c001f;
         public static final int OptionsMenuFMView=0x7f0c001b;
-        public static final int PhotoDisc=0x7f0c0021;
-        public static final int PhotoRen=0x7f0c0022;
-        public static final int PhotoRenFail=0x7f0c0025;
-        public static final int PhotoSaved=0x7f0c0020;
-        public static final int SavedPref=0x7f0c0023;
-        public static final int SetCalSum=0x7f0c002b;
-        public static final int SetCalTitle=0x7f0c002a;
-        public static final int SetCompSum=0x7f0c002d;
-        public static final int SetCompTitle=0x7f0c002c;
-        public static final int SetFormSum=0x7f0c0029;
-        public static final int SetFormTitle=0x7f0c0028;
-        public static final int SetTitle=0x7f0c0027;
+        public static final int PhotoDisc=0x7f0c0022;
+        public static final int PhotoRen=0x7f0c0023;
+        public static final int PhotoRenFail=0x7f0c0026;
+        public static final int PhotoSaved=0x7f0c0021;
+        public static final int SavedPref=0x7f0c0024;
+        public static final int SetCalSum=0x7f0c002c;
+        public static final int SetCalTitle=0x7f0c002b;
+        public static final int SetCompSum=0x7f0c002e;
+        public static final int SetCompTitle=0x7f0c002d;
+        public static final int SetFlashSum=0x7f0c0030;
+        public static final int SetFlashTitle=0x7f0c002f;
+        public static final int SetFormSum=0x7f0c002a;
+        public static final int SetFormTitle=0x7f0c0029;
+        public static final int SetTitle=0x7f0c0028;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abc_action_bar_home_description=0x7f0c0001;

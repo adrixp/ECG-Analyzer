@@ -18,6 +18,7 @@
 	<string name="OptionsMenuFMView">Ver</string>
 	<string name="OptionsMenuFMCancel">Cancelar</string>
 	<string name="OptionsMenuFMDelete">Borrar</string>
+	<string name="OptionsMenuFMDeleteAll">Borrar todo</string>
 	<string name="OptionsMenuFMRen">Renombrar</string>
 	
 	<string name="LongCLick">Pulsa un rato para ver opciones</string>
@@ -36,7 +37,9 @@
 	<string name="SetCalTitle">Resolución</string>
 	<string name="SetCalSum">Selecciona la resulución de la imagen</string>	
 	<string name="SetCompTitle">Compresión</string>
-	<string name="SetCompSum">Selecciona el nivel de compresión</string>
+	<string name="SetCompSum">Selecciona el nivel de compresión</string>	
+	<string name="SetFlashTitle">Flash</string>
+	<string name="SetFlashSum">Apagar/Encender flash</string>	
 	
 	
 	<string name="Optimal">Optimo</string>	

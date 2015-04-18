@@ -18,6 +18,7 @@
 	<string name="OptionsMenuFMView">View</string>
 	<string name="OptionsMenuFMCancel">Cancel</string>
 	<string name="OptionsMenuFMDelete">Delete</string>
+	<string name="OptionsMenuFMDeleteAll">Delete All</string>
 	<string name="OptionsMenuFMRen">Rename</string>
 	
 	<string name="LongCLick">Long click to see options</string>
@@ -37,6 +38,8 @@
 	<string name="SetCalSum">Select the image resolution</string>	
 	<string name="SetCompTitle">Compress</string>
 	<string name="SetCompSum">Select the compression level</string>	
+	<string name="SetFlashTitle">Flash</string>
+	<string name="SetFlashSum">Turn on/off flash</string>	
 	
 	<string name="Log">Log</string>
 	<string name="Optimal">Optimal</string>	
